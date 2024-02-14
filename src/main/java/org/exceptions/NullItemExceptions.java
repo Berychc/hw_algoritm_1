@@ -19,4 +19,5 @@ public class NullItemExceptions extends RuntimeException {
     public NullItemExceptions(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
 }
