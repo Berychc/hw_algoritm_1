@@ -1,7 +1,6 @@
 package org.example;
 
 public interface StringList {
-
     String add(int index, String item);
 
     String remove(String item);

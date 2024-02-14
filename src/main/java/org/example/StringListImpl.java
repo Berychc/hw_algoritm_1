@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 public class StringListImpl implements StringList {
 
+
     private final String[] storage;
     private int size;
 
