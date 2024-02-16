@@ -2,17 +2,19 @@ package org.example;
 
 public interface StringList {
 
-    String add(int index, String item);
+    Integer add(int index, Integer item);
 
-    String remove(String item);
+    Integer remove(Integer item);
 
-    boolean contains(String item);
+    Integer remove(int index);
 
-    int indexOf(String item);
+    boolean contains(Integer item);
 
-    int lastIndexOf(String item);
+    int indexOf(Integer item);
 
-    String get(int index);
+    int lastIndexOf(Integer item);
+
+    Integer get(int index);
 
     boolean equals(StringList otherList);
 
@@ -22,5 +24,5 @@ public interface StringList {
 
     void clear();
 
-    String[] toArray();
+    Integer[] toArray();
 }
