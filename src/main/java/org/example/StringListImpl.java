@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class StringListImpl implements StringList {
 
 
-    private final Integer[] storage;
+    private Integer[] storage;
     private int size;
 
     public StringListImpl() {
@@ -22,7 +22,7 @@ public class StringListImpl implements StringList {
 
     @Override
     public Integer add(int index, Integer item) {
-        validateSize();
+        growIfNeeded();
         validateItem(item);
         validateIndex(index);
 
@@ -126,9 +126,9 @@ public class StringListImpl implements StringList {
         }
     }
 
-    public void validateSize() {
+    public void growIfNeeded() {
         if (size == storage.length) {
-            throw new ElementsIsFullException();
+            grow();
         }
     }
 
@@ -139,16 +139,41 @@ public class StringListImpl implements StringList {
     }
 
     private void sort(Integer[] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            int temp = arr[i];
-            int j = i;
-            while (j > 0 && arr[j - 1] >= temp) {
-                arr[j] = arr[j - 1];
-                j--;
-            }
-            arr[j] = temp;
+       quickSort(arr, 0, arr.length - 1);
+    }
+
+    private void quickSort(Integer[] arr, int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+
+            quickSort(arr, begin, partitionIndex - 1);
+            quickSort(arr, partitionIndex + 1, end);
+            
         }
     }
+
+    private int partition(Integer[] arr, int begin, int end) {
+        int pivot = arr[end];
+        int i = (begin - 1);
+
+        for (int j = begin; j < end; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+
+                swapElements(arr, i, j);
+            }
+            
+        }
+        swapElements(arr, i + 1, end);
+        return i + 1;
+    }
+
+    private void swapElements(Integer[] arr, int i1, int i2) {
+        int temp = arr[i1];
+        arr[i1] = arr[i2];
+        arr[i2] = temp;
+    }
+
 
     private boolean binarySearch(Integer[] arr, Integer item) {
         int min = 0;
@@ -168,4 +193,10 @@ public class StringListImpl implements StringList {
         }
         return false;
     }
+
+    private void grow() {
+        storage = Arrays.copyOf(storage, size + size / 2);
+    }
 }
+
+
